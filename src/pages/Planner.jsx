@@ -83,8 +83,10 @@ function Planner() {
           ))}
         </tbody>
       </table>
-      <button onClick={clearMealPlan}>Clear</button>
-      <button onClick={() => navigate("/shopping-list")}>Generate Shopping List</button>
+      <div className="action-btns">
+        <button onClick={clearMealPlan}>Clear</button>
+        <button onClick={() => navigate("/shopping-list")}>Generate Shopping List</button>
+      </div>
     </div>
   );
 }

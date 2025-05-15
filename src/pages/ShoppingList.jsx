@@ -3,7 +3,6 @@ import meals from '../data/meals.json';
 import emailjs from '@emailjs/browser';
 
 function ShoppingList() {
-  const [selectedMeals, setSelectedMeals] = useState([]);
   const [groupedMeals, setGroupededMeals] = useState([]);
   const [allIngredients, setAllIngredients] = useState([]);
   const [userEmail, setUserEmail] = useState("");
@@ -20,9 +19,7 @@ function ShoppingList() {
 
     // Map meal names to full meal objects
     const mealsSelected = mealNames.map(name => meals.find(meal => meal.name === name));
-
     console.log(mealsSelected);
-    setSelectedMeals(mealsSelected);
 
     const mealsCount = mealsSelected.reduce((acc, meal) => {
       const name = meal.name;

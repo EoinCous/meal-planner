@@ -54,3 +54,10 @@ select {
   background-color: white;
   margin-bottom: 4px;
 }
+
+.action-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
