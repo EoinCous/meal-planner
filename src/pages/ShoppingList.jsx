@@ -3,98 +3,89 @@ import meals from '../data/meals.json';
 import emailjs from '@emailjs/browser';
 
 function ShoppingList() {
-  const [groupedMeals, setGroupededMeals] = useState([]);
-  const [allIngredients, setAllIngredients] = useState([]);
+  const [groupedMeals, setGroupedMeals] = useState([]);
   const [ingredientsByCategory, setIngredientsByCategory] = useState({});
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
+    const mealNames = extractMealNamesFromPlan();
+    const selectedMeals = mealNames.map(name => meals.find(meal => meal.name === name));
+
+    setGroupedMeals(groupMealsWithCount(selectedMeals));
+    setIngredientsByCategory(groupIngredientsByCategory(selectedMeals));
+  }, []);
+
+  const extractMealNamesFromPlan = () => {
     const rawPlan = localStorage.getItem('mealPlan');
     const parsedPlan = rawPlan ? JSON.parse(rawPlan) : {};
-
-    // Collect all unique meal names from the mealPlan
-    const mealNames = Object.values(parsedPlan)
+    return Object.values(parsedPlan)
       .flatMap(day => Object.values(day))
       .filter(Boolean)
       .flat();
+  };
 
-    // Map meal names to full meal objects
-    const mealsSelected = mealNames.map(name => meals.find(meal => meal.name === name));
-    console.log(mealsSelected);
+  const groupMealsWithCount = (mealsList) => {
+    return Object.values(
+      mealsList.reduce((acc, meal) => {
+        const { name } = meal;
+        acc[name] = acc[name]
+          ? { ...acc[name], count: acc[name].count + 1 }
+          : { ...meal, count: 1 };
+        return acc;
+      }, {})
+    );
+  };
 
-    const mealsCount = mealsSelected.reduce((acc, meal) => {
-      const name = meal.name;
-      acc[name] = acc[name] ? { ...acc[name], count: acc[name].count + 1 } : { ...meal, count: 1 };
-      return acc;
-    }, {});
-    
-    console.log(Object.values(mealsCount));
-    setGroupededMeals(Object.values(mealsCount));
-
-    const ingredientsMap = {};
-    mealsSelected.forEach((meal) => {
-      meal.ingredients.forEach((ingredient) => {
-        const { category, name } = ingredient;
-        if (!ingredientsMap[category]) {
-          ingredientsMap[category] = [];
-        }
-        ingredientsMap[category].push({
-          name,
-          selected: true // true means it's selected by default
-        });
+  const groupIngredientsByCategory = (mealsList) => {
+    const map = {};
+    mealsList.forEach(({ ingredients }) => {
+      ingredients.forEach(({ category, name }) => {
+        if (!map[category]) map[category] = [];
+        map[category].push({ name, selected: true });
       });
     });
-
-    console.log(ingredientsMap);
-    setIngredientsByCategory(ingredientsMap);
-  }, []);
-  
-  const toggleIngredient = (category, index) => {
-    setIngredientsByCategory(prev => {
-      const updatedCategory = [...prev[category]];
-      updatedCategory[index] = {
-        ...updatedCategory[index],
-        selected: !updatedCategory[index].selected
-      };
-
-      return {
-        ...prev,
-        [category]: updatedCategory
-      };
-    });
+    return map;
   };
+
+  const toggleIngredient = (category, index) => {
+  setIngredientsByCategory(prev => {
+    const updated = [...prev[category]];
+    updated[index] = {
+      ...updated[index],
+      selected: !updated[index].selected
+    };
+    return { ...prev, [category]: updated };
+  });
+};
 
   const sendEmail = (e) => {
     e.preventDefault();
-
-    const selectedIngredients = Object.entries(ingredientsByCategory)
-    .flatMap(([_, ingredients]) =>
-      Object.entries(ingredients)
-        .filter(([_, included]) => included)
-        .map(([name]) => name)
-    );
-
-    emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          user_email: userEmail,
-          ingredients: selectedIngredients.join(", ")
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      ).then(
-        (result) => {
-          console.log('Email sent successfully:', result.text);
-          alert('Email sent!');
-        },
-        (error) => {
-          console.error('Email send error:', error.text);
-          alert('Something went wrong.');
-        }
+    const selected = Object.entries(ingredientsByCategory)
+      .flatMap(([_, ingredients]) =>
+        ingredients.filter(i => i.selected).map(i => i.name)
       );
 
+    emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      {
+        user_email: userEmail,
+        ingredients: selected.join(", ")
+      },
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    ).then(
+      (result) => {
+        console.log('Email sent successfully:', result.text);
+        alert('Email sent!');
+      },
+      (error) => {
+        console.error('Email send error:', error.text);
+        alert('Something went wrong.');
+      }
+    );
+
     setUserEmail("");
-  } 
+  };
 
   return (
     <div className="shopping-list">
@@ -103,10 +94,9 @@ function ShoppingList() {
       <section>
         <h3>Selected Meals:</h3>
         <ul>
-          
-          {groupedMeals.map((meal) => (
-            <li key={meal.name}>
-              {meal.name} {meal.count > 1 && `(x${meal.count})`}
+          {groupedMeals.map(({ name, count }) => (
+            <li key={name}>
+              {name} {count > 1 && `(x${count})`}
             </li>
           ))}
         </ul>
@@ -118,15 +108,15 @@ function ShoppingList() {
           <div key={category}>
             <h4>{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
             <ul>
-              {ingredients.map((ingredient, index) => (
-                <li key={`${ingredient.name}-${index}`}>
+              {ingredients.map(({ name, selected }, index) => (
+                <li key={`${name}-${index}`}>
                   <label>
                     <input
                       type="checkbox"
-                      checked={ingredient.selected}
+                      checked={selected}
                       onChange={() => toggleIngredient(category, index)}
                     />
-                    {ingredient.name}
+                    {name}
                   </label>
                 </li>
               ))}
@@ -136,14 +126,16 @@ function ShoppingList() {
       </section>
 
       <h3>Send list by email</h3>
-      <input 
-        type="email" 
-        placeholder="johnsmith@example.com" 
-        value={userEmail} 
-        onChange={(e) => setUserEmail(e.target.value)}
-        required
-    ></input>
-    <button onClick={sendEmail}>Email</button>
+      <form onSubmit={sendEmail}>
+        <input
+          type="email"
+          placeholder="johnsmith@example.com"
+          value={userEmail}
+          onChange={(e) => setUserEmail(e.target.value)}
+          required
+        />
+        <button type="submit">Email</button>
+      </form>
     </div>
   );
 }
