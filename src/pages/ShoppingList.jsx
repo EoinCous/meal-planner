@@ -35,8 +35,13 @@ function ShoppingList() {
     mealsSelected.forEach((meal) => {
       meal.ingredients.forEach((ingredient) => {
         const { category, name } = ingredient;
-        if (!ingredientsMap[category]) ingredientsMap[category] = {};
-        ingredientsMap[category][name] = true; // true means it's selected by default
+        if (!ingredientsMap[category]) {
+          ingredientsMap[category] = [];
+        }
+        ingredientsMap[category].push({
+          name,
+          selected: true // true means it's selected by default
+        });
       });
     });
 
@@ -44,14 +49,19 @@ function ShoppingList() {
     setIngredientsByCategory(ingredientsMap);
   }, []);
   
-  const toggleIngredient = (category, name) => {
-    setIngredientsByCategory(prev => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [name]: !prev[category][name]
-      }
-    }));
+  const toggleIngredient = (category, index) => {
+    setIngredientsByCategory(prev => {
+      const updatedCategory = [...prev[category]];
+      updatedCategory[index] = {
+        ...updatedCategory[index],
+        selected: !updatedCategory[index].selected
+      };
+
+      return {
+        ...prev,
+        [category]: updatedCategory
+      };
+    });
   };
 
   const sendEmail = (e) => {
@@ -108,15 +118,15 @@ function ShoppingList() {
           <div key={category}>
             <h4>{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
             <ul>
-              {Object.entries(ingredients).map(([name, included]) => (
-                <li key={name}>
+              {ingredients.map((ingredient, index) => (
+                <li key={`${ingredient.name}-${index}`}>
                   <label>
                     <input
                       type="checkbox"
-                      checked={included}
-                      onChange={() => toggleIngredient(category, name)}
+                      checked={ingredient.selected}
+                      onChange={() => toggleIngredient(category, index)}
                     />
-                    {name}
+                    {ingredient.name}
                   </label>
                 </li>
               ))}
