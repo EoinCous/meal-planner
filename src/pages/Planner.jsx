@@ -1,9 +1,9 @@
 import "../css/Planner.css";
 import { useState, useEffect } from 'react';
-import meals from '../data/meals.json';
 import { useNavigate } from 'react-router-dom';
 
 function Planner() {
+  const meals = JSON.parse(localStorage.getItem("meals"));
   const navigate = useNavigate();
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   const mealTypes = ["Breakfast", "Lunch", "Dinner"];

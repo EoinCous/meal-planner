@@ -8,8 +8,17 @@ import ScrollToTop from './components/ScrollToTop'
 import { Routes, Route } from 'react-router-dom'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import { useEffect } from 'react';
+import defaultMeals from './data/meals.json';
 
 function App() {
+  useEffect(() => {
+    const existingMeals = localStorage.getItem("meals");
+    if(!existingMeals){
+      localStorage.setItem("meals", JSON.stringify(defaultMeals));
+    }
+  }, []);
+
   return (
     <>
     <ScrollToTop />

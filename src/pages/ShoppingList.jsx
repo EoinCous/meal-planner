@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import meals from '../data/meals.json';
 import emailjs from '@emailjs/browser';
 
 function ShoppingList() {
+  const meals = JSON.parse(localStorage.getItem("meals"));
   const [groupedMeals, setGroupedMeals] = useState([]);
   const [ingredientsByCategory, setIngredientsByCategory] = useState({});
   const [userEmail, setUserEmail] = useState("");

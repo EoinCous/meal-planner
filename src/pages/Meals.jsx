@@ -1,4 +1,3 @@
-import meals from '../data/meals.json';
 import MealCard from '../components/MealCard';
 import MealFilter from '../components/MealFilter';
 import { useState } from 'react';
@@ -6,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import "../css/Meals.css";
 
 function Meals(){
+    const meals = JSON.parse(localStorage.getItem("meals"));
     const navigate = useNavigate();
     
     const [filter, setFilter] = useState("All");
