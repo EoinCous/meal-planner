@@ -1,16 +1,21 @@
 import MealCard from '../components/MealCard';
 import MealFilter from '../components/MealFilter';
+import defaultMeals from '../data/meals.json';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../css/Meals.css";
-import { getMealsFromStorage } from '../services/mealStorage';
+import { getMealsFromStorage, saveMealsToStorage } from '../services/mealStorage';
 
 function Meals(){
     const meals = getMealsFromStorage();
-    const navigate = useNavigate();
     
     const [filter, setFilter] = useState("All");
     const filteredMeals = filter === "All" ? meals : meals.filter(meal => meal.type === filter);
+
+    const navigate = useNavigate();
+    const refreshPage = () => {
+    navigate(0); // This reloads the current route like a full page reload
+  };
 
     return (
         <div className='meals'>
@@ -26,6 +31,10 @@ function Meals(){
                     <MealCard meal={meal} key={meal.id} />
                 )}
             </div>
+            <button onClick={() => {
+                saveMealsToStorage(defaultMeals)
+                refreshPage()
+            }}>Reset default meals</button>
         </div>
     )
 }

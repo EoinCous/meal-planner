@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import "../css/MealDetails.css";
-import { getMealsFromStorage } from '../services/mealStorage';
+import { deleteMeal, getMealsFromStorage } from '../services/mealStorage';
+import { useNavigate } from 'react-router-dom';
 
 function MealDetails(){
   const meals = getMealsFromStorage();
@@ -11,6 +12,8 @@ function MealDetails(){
     return <div>Meal not found.</div>;
   }
 
+  const navigate = useNavigate();
+
   return (
     <div className="meal-detail">
       <div className="meal-detail-info">
@@ -18,6 +21,13 @@ function MealDetails(){
         <p><strong>Type:</strong> {meal.type}</p>
         <p><strong>Ingredients:</strong> {meal.ingredients.map(ingredient => ingredient.name).join(", ")}</p>
         <p><strong>Recipe:</strong> ?</p>
+        <button onClick={() => {
+            deleteMeal(meal.id)
+            navigate("/meals")
+            localStorage.setItem("mealPlan", JSON.stringify({}));
+          }}>
+            Delete Meal
+        </button>
       </div>
       <img 
         src={meal.image} 

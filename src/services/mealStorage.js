@@ -8,3 +8,8 @@ export const getMealsFromStorage = () => {
 export const saveMealsToStorage = (meals) => {
   localStorage.setItem(MEALS_KEY, JSON.stringify(meals));
 };
+
+export const deleteMeal = (id) => {
+  const meals = getMealsFromStorage().filter(meal => meal.id !== id);
+  saveMealsToStorage(meals);
+};
