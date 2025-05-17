@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
 
 function ShoppingList() {
-  const meals = JSON.parse(localStorage.getItem("meals"));
   const [groupedMeals, setGroupedMeals] = useState([]);
   const [ingredientsByCategory, setIngredientsByCategory] = useState({});
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
+    const meals = JSON.parse(localStorage.getItem("meals"));
     const mealNames = extractMealNamesFromPlan();
     const selectedMeals = mealNames.map(name => meals.find(meal => meal.name === name));
 
