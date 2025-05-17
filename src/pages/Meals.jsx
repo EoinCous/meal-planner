@@ -3,9 +3,10 @@ import MealFilter from '../components/MealFilter';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../css/Meals.css";
+import { getMealsFromStorage } from '../services/mealStorage';
 
 function Meals(){
-    const meals = JSON.parse(localStorage.getItem("meals"));
+    const meals = getMealsFromStorage();
     const navigate = useNavigate();
     
     const [filter, setFilter] = useState("All");

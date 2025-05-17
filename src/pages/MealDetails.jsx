@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
 import "../css/MealDetails.css";
+import { getMealsFromStorage } from '../services/mealStorage';
 
 function MealDetails(){
-  const meals = JSON.parse(localStorage.getItem("meals"));
+  const meals = getMealsFromStorage();
   const { id } = useParams();
   const meal = meals.find(meal => meal.id === parseInt(id));
 

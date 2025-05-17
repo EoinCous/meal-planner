@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
+import { getMealsFromStorage } from "../services/mealStorage";
 
 function ShoppingList() {
   const [groupedMeals, setGroupedMeals] = useState([]);
@@ -7,7 +8,7 @@ function ShoppingList() {
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
-    const meals = JSON.parse(localStorage.getItem("meals"));
+    const meals = getMealsFromStorage();
     const mealNames = extractMealNamesFromPlan();
     const selectedMeals = mealNames.map(name => meals.find(meal => meal.name === name));
 

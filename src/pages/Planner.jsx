@@ -1,6 +1,7 @@
 import "../css/Planner.css";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getMealsFromStorage } from "../services/mealStorage";
 
 function Planner() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Planner() {
   });
 
   const getMealOptions = (type) => {
-    const meals = JSON.parse(localStorage.getItem("meals"));
+    const meals = getMealsFromStorage();
     return meals.filter((meal) => meal.type.toLowerCase() === type.toLowerCase());
   };
 
