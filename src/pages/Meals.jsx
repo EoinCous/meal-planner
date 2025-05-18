@@ -17,6 +17,10 @@ function Meals(){
     navigate(0); // This reloads the current route like a full page reload
   };
 
+  const addNewMeal = () => {
+    navigate("/meals/new")
+  }
+
     return (
         <div className='meals'>
             <div className='header'>
@@ -35,6 +39,7 @@ function Meals(){
                 saveMealsToStorage(defaultMeals)
                 refreshPage()
             }}>Reset default meals</button>
+            <button onClick={() => addNewMeal()}>Add new meal</button>
         </div>
     )
 }

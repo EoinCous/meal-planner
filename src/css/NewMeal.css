@@ -1,0 +1,14 @@
+.new-meal {
+  max-width: 600px;
+  margin: auto;
+}
+
+.new-meal h2 {
+    margin-bottom: 20px;
+}
+
+.ingredient-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}

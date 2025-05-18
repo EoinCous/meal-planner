@@ -11,6 +11,7 @@ import Header from './components/Header'
 import { useEffect } from 'react';
 import defaultMeals from './data/meals.json';
 import { getMealsFromStorage, saveMealsToStorage } from './services/mealStorage'
+import NewMeal from './pages/NewMeal'
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/meals' element={<Meals />}/>
+          <Route path='/meals/new' element={<NewMeal />}/>
           <Route path='/meal/:id' element={<MealDetails />}/>
           <Route path='/planner' element={<Planner />}/>
           <Route path='/shopping-list' element={<ShoppingList />}/>

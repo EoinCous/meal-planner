@@ -9,7 +9,12 @@ export const saveMealsToStorage = (meals) => {
   localStorage.setItem(MEALS_KEY, JSON.stringify(meals));
 };
 
-export const deleteMeal = (id) => {
+export const addMealToStorage = (meal) => {
+  const meals = getMeals();
+  saveMeals([...meals, meal]);
+};
+
+export const deleteMealFromStorage = (id) => {
   const meals = getMealsFromStorage().filter(meal => meal.id !== id);
   saveMealsToStorage(meals);
 };
