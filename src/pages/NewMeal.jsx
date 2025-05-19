@@ -49,7 +49,7 @@ function NewMeal() {
 
         <label>
           Meal Type:
-          <select value={type} onChange={(e) => setType(e.target.value)}>
+          <select value={type} onChange={(e) => setType(e.target.value)} required>
             <option>Breakfast</option>
             <option>Lunch</option>
             <option>Dinner</option>

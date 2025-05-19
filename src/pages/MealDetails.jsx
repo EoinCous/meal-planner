@@ -11,8 +11,13 @@ function MealDetails(){
   if (!meal) {
     return <div>Meal not found.</div>;
   }
-
   const navigate = useNavigate();
+
+  const deleteMeal = () => {
+    deleteMealFromStorage(meal.id)
+    navigate("/meals")
+    localStorage.setItem("mealPlan", JSON.stringify({}));
+  }
 
   return (
     <div className="meal-detail">
@@ -21,13 +26,8 @@ function MealDetails(){
         <p><strong>Type:</strong> {meal.type}</p>
         <p><strong>Ingredients:</strong> {meal.ingredients.map(ingredient => ingredient.name).join(", ")}</p>
         <p><strong>Recipe:</strong> ?</p>
-        <button onClick={() => {
-            deleteMealFromStorage(meal.id)
-            navigate("/meals")
-            localStorage.setItem("mealPlan", JSON.stringify({}));
-          }}>
-            Delete Meal
-        </button>
+        <button onClick={() => navigate(`/meal/${meal.id}/edit`)}>Edit</button>
+        <button onClick={() => deleteMeal()}>Delete</button>
       </div>
       <img 
         src={meal.image} 

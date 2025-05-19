@@ -14,6 +14,11 @@ export const addMealToStorage = (meal) => {
   saveMeals([...meals, meal]);
 };
 
+export const updateMealInStorage = (id, updatedMeal) => {
+  const meals = getMealsFromStorage().map(meal => meal.id === id ? updatedMeal : meal);
+  saveMealsToStorage(meals);
+};
+
 export const deleteMealFromStorage = (id) => {
   const meals = getMealsFromStorage().filter(meal => meal.id !== id);
   saveMealsToStorage(meals);

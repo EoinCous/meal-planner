@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import defaultMeals from './data/meals.json';
 import { getMealsFromStorage, saveMealsToStorage } from './services/mealStorage'
 import NewMeal from './pages/NewMeal'
+import EditMeal from './pages/EditMeal'
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
           <Route path='/meals' element={<Meals />}/>
           <Route path='/meals/new' element={<NewMeal />}/>
           <Route path='/meal/:id' element={<MealDetails />}/>
+          <Route path='/meal/:id/edit' element={<EditMeal />}/>
           <Route path='/planner' element={<Planner />}/>
           <Route path='/shopping-list' element={<ShoppingList />}/>
         </Routes>
