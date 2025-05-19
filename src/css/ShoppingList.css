@@ -1,0 +1,7 @@
+.category-box {
+  border-left: 4px solid var(--colouraccent2);
+  background: #fff8e1;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}

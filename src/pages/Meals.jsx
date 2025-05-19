@@ -31,11 +31,13 @@ function Meals(){
                     <MealCard meal={meal} key={meal.id} />
                 )}
             </div>
-            <button onClick={() => {
-                saveMealsToStorage(defaultMeals)
-                refreshPage()
-            }}>Reset default meals</button>
-            <button onClick={() => navigate("/meals/new")}>Add new meal</button>
+            <div className='action-btns'>
+                <button onClick={() => {
+                    saveMealsToStorage(defaultMeals)
+                    refreshPage()
+                }}>Reset default meals</button>
+                <button onClick={() => navigate("/meals/new")}>Add new meal</button>
+            </div>
         </div>
     )
 }

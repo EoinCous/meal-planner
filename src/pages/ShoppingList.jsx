@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import emailjs from '@emailjs/browser';
 import { getMealsFromStorage } from "../services/mealStorage";
+import "../css/ShoppingList.css";
+import EmailForm from "../components/EmailForm";
 
 function ShoppingList() {
   const [groupedMeals, setGroupedMeals] = useState([]);
   const [ingredientsByCategory, setIngredientsByCategory] = useState({});
-  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     const meals = getMealsFromStorage();
@@ -39,13 +39,26 @@ function ShoppingList() {
 
   const groupIngredientsByCategory = (mealsList) => {
     const map = {};
+
     mealsList.forEach(({ ingredients }) => {
       ingredients.forEach(({ category, name }) => {
-        if (!map[category]) map[category] = [];
-        map[category].push({ name, selected: true });
+        if (!map[category]) map[category] = {};
+
+        const lowerName = name.trim().toLowerCase(); // Normalize
+        if (!map[category][lowerName]) {
+          map[category][lowerName] = { name, count: 1, selected: true };
+        } else {
+          map[category][lowerName].count += 1;
+        }
       });
     });
-    return map;
+
+    const result = {};
+    for (const category in map) {
+      result[category] = Object.values(map[category]);
+    }
+
+    return result;
   };
 
   const toggleIngredient = (category, index) => {
@@ -58,35 +71,6 @@ function ShoppingList() {
     return { ...prev, [category]: updated };
   });
 };
-
-  const sendEmail = (e) => {
-    e.preventDefault();
-    const selected = Object.entries(ingredientsByCategory)
-      .flatMap(([_, ingredients]) =>
-        ingredients.filter(i => i.selected).map(i => i.name)
-      );
-
-    emailjs.send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      {
-        user_email: userEmail,
-        ingredients: selected.join(", ")
-      },
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-    ).then(
-      (result) => {
-        console.log('Email sent successfully:', result.text);
-        alert('Email sent!');
-      },
-      (error) => {
-        console.error('Email send error:', error.text);
-        alert('Something went wrong.');
-      }
-    );
-
-    setUserEmail("");
-  };
 
   return (
     <div className="shopping-list">
@@ -107,9 +91,9 @@ function ShoppingList() {
         <h3>Ingredients Needed:</h3>
         {Object.entries(ingredientsByCategory).map(([category, ingredients]) => (
           <div key={category}>
-            <h4>{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
+            <h4 className="category-box">{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
             <ul>
-              {ingredients.map(({ name, selected }, index) => (
+              {ingredients.map(({ name, selected, count }, index) => (
                 <li key={`${name}-${index}`}>
                   <label>
                     <input
@@ -117,7 +101,7 @@ function ShoppingList() {
                       checked={selected}
                       onChange={() => toggleIngredient(category, index)}
                     />
-                    {name}
+                    {name} {count > 1 && `(x${count})`}
                   </label>
                 </li>
               ))}
@@ -126,17 +110,7 @@ function ShoppingList() {
         ))}
       </section>
 
-      <h3>Send list by email</h3>
-      <form onSubmit={sendEmail}>
-        <input
-          type="email"
-          placeholder="johnsmith@example.com"
-          value={userEmail}
-          onChange={(e) => setUserEmail(e.target.value)}
-          required
-        />
-        <button type="submit">Email</button>
-      </form>
+      <EmailForm ingredientsByCategory={ingredientsByCategory}/>
     </div>
   );
 }
