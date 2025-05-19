@@ -4,7 +4,7 @@ import defaultMeals from '../data/meals.json';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../css/Meals.css";
-import { getMealsFromStorage, saveMealsToStorage } from '../services/mealStorage';
+import { getMealsFromStorage, saveMealsToStorage } from '../services/storage';
 
 function Meals(){
     const meals = getMealsFromStorage();

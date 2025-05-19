@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/NewMeal.css";
-import { getMealsFromStorage } from "../services/mealStorage";
+import { getMealsFromStorage } from "../services/storage";
 
 function NewMeal() {
   const navigate = useNavigate();

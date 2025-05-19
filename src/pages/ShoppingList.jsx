@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getMealsFromStorage } from "../services/mealStorage";
+import { getMealsFromStorage, getMealPlanFromStorage } from "../services/storage";
 import "../css/ShoppingList.css";
 import EmailForm from "../components/EmailForm";
 
@@ -17,9 +17,8 @@ function ShoppingList() {
   }, []);
 
   const extractMealNamesFromPlan = () => {
-    const rawPlan = localStorage.getItem('mealPlan');
-    const parsedPlan = rawPlan ? JSON.parse(rawPlan) : {};
-    return Object.values(parsedPlan)
+    const mealPlan = getMealPlanFromStorage();
+    return Object.values(mealPlan)
       .flatMap(day => Object.values(day))
       .filter(Boolean)
       .flat();
@@ -76,39 +75,41 @@ function ShoppingList() {
     <div className="shopping-list">
       <h2>Your Shopping List</h2>
 
-      <section>
-        <h3>Selected Meals:</h3>
-        <ul>
-          {groupedMeals.map(({ name, count }) => (
-            <li key={name}>
-              {name} {count > 1 && `(x${count})`}
-            </li>
-          ))}
-        </ul>
-      </section>
+      <div className="lists">
+        <section>
+          <h3>Selected Meals:</h3>
+          <ul>
+            {groupedMeals.map(({ name, count }) => (
+              <li key={name}>
+                {name} {count > 1 && `(x${count})`}
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      <section>
-        <h3>Ingredients Needed:</h3>
-        {Object.entries(ingredientsByCategory).map(([category, ingredients]) => (
-          <div key={category}>
-            <h4 className="category-box">{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
-            <ul>
-              {ingredients.map(({ name, selected, count }, index) => (
-                <li key={`${name}-${index}`}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={selected}
-                      onChange={() => toggleIngredient(category, index)}
-                    />
-                    {name} {count > 1 && `(x${count})`}
-                  </label>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </section>
+        <section>
+          <h3>Ingredients Needed:</h3>
+          {Object.entries(ingredientsByCategory).map(([category, ingredients]) => (
+            <div key={category}>
+              <h4 className="category-box">{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
+              <ul>
+                {ingredients.map(({ name, selected, count }, index) => (
+                  <li key={`${name}-${index}`}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={selected}
+                        onChange={() => toggleIngredient(category, index)}
+                      />
+                      {name} {count > 1 && `(x${count})`}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      </div>
 
       <EmailForm ingredientsByCategory={ingredientsByCategory}/>
     </div>

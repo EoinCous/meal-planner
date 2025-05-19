@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import "../css/MealDetails.css";
-import { deleteMealFromStorage, getMealsFromStorage } from '../services/mealStorage';
+import { deleteMealFromStorage, getMealsFromStorage, saveMealPlanToStorage } from '../services/storage';
 import { useNavigate } from 'react-router-dom';
 
 function MealDetails(){
@@ -16,7 +16,7 @@ function MealDetails(){
   const deleteMeal = () => {
     deleteMealFromStorage(meal.id)
     navigate("/meals")
-    localStorage.setItem("mealPlan", JSON.stringify({}));
+    saveMealPlanToStorage({})
   }
 
   return (

@@ -1,18 +1,14 @@
 import "../css/Planner.css";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getMealsFromStorage } from "../services/mealStorage";
+import { getMealPlanFromStorage, getMealsFromStorage, saveMealPlanToStorage } from "../services/storage";
 
 function Planner() {
   const navigate = useNavigate();
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  const mealTypes = ["Breakfast", "Lunch", "Dinner"];
+  const mealTypes = ["Breakfast", "Lunch", "Dinner", "Snacks"];
 
-  // Load from localStorage or use empty object
-  const [mealPlan, setMealPlan] = useState(() => {
-    const saved = localStorage.getItem("mealPlan");
-    return saved ? JSON.parse(saved) : {};
-  });
+  const [mealPlan, setMealPlan] = useState(() => getMealPlanFromStorage());
 
   const getMealOptions = (type) => {
     const meals = getMealsFromStorage();
@@ -32,11 +28,11 @@ function Planner() {
 
   // Save to localStorage whenever mealPlan changes
   useEffect(() => {
-    localStorage.setItem("mealPlan", JSON.stringify(mealPlan));
+    saveMealPlanToStorage(mealPlan);
   }, [mealPlan]);
 
   const clearMealPlan = () => {
-    localStorage.setItem("mealPlan", JSON.stringify({}));
+    saveMealPlanToStorage({});
     setMealPlan({});
   }
 

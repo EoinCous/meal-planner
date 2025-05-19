@@ -1,4 +1,5 @@
 const MEALS_KEY = "meals";
+const MEAL_PLAN_KEY = "mealPlan";
 
 export const getMealsFromStorage = () => {
   const data = localStorage.getItem(MEALS_KEY);
@@ -22,4 +23,14 @@ export const updateMealInStorage = (id, updatedMeal) => {
 export const deleteMealFromStorage = (id) => {
   const meals = getMealsFromStorage().filter(meal => meal.id !== id);
   saveMealsToStorage(meals);
+};
+
+
+export const getMealPlanFromStorage = () => {
+  const data = localStorage.getItem(MEAL_PLAN_KEY);
+  return data ? JSON.parse(data) : {};
+};
+
+export const saveMealPlanToStorage = (mealPlan) => {
+  localStorage.setItem(MEAL_PLAN_KEY, JSON.stringify(mealPlan));
 };

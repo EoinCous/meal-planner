@@ -265,5 +265,15 @@
       }
     ],
     "type": "Dinner"
+  },
+  {
+    "id": 11,
+    "name": "Hummus & Crackers",
+    "image": "/images/hummus-crackers.jpg",
+    "ingredients": [
+      {"name": "hummus", "category": "other"},
+      {"name": "crackers", "category": "other"}
+    ],
+    "type": "Snacks"
   }
 ]

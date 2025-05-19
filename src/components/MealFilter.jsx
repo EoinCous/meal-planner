@@ -1,6 +1,6 @@
 import "../css/MealFilter.css";
 
-const mealTypes = ["All", "Breakfast", "Lunch", "Dinner"];
+const mealTypes = ["All", "Breakfast", "Lunch", "Dinner", "Snacks"];
 
 function MealFilter({ selectedType, onSelect }){
     return (
