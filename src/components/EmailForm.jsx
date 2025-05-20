@@ -7,28 +7,34 @@ function EmailForm({ ingredientsByCategory }){
 
     const sendEmail = (e) => {
         e.preventDefault();
-        const selected = Object.entries(ingredientsByCategory)
-        .flatMap(([_, ingredients]) =>
-            ingredients.filter(i => i.selected).map(i => i.name)
-        );
+
+        // Format the ingredients grouped by category
+        const formattedIngredients = Object.entries(ingredientsByCategory)
+            .map(([category, ingredients]) => {
+                const selected = ingredients.filter(i => i.selected).map(i => i.name);
+                if (selected.length === 0) return null;
+                return `${category}:\n${selected.map(i => `- ${i}`).join("\n")}`;
+            })
+            .filter(Boolean) // Remove nulls
+            .join("\n\n"); // Add spacing between categories
 
         emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-            user_email: userEmail,
-            ingredients: selected.join(", ")
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            import.meta.env.VITE_EMAILJS_SERVICE_ID,
+            import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+            {
+                user_email: userEmail,
+                ingredients: formattedIngredients,
+            },
+            import.meta.env.VITE_EMAILJS_PUBLIC_KEY
         ).then(
-        (result) => {
-            console.log('Email sent successfully:', result.text);
-            alert('Email sent!');
-        },
-        (error) => {
-            console.error('Email send error:', error.text);
-            alert('Something went wrong.');
-        }
+            (result) => {
+                console.log('Email sent successfully:', result.text);
+                alert('Email sent!');
+            },
+            (error) => {
+                console.error('Email send error:', error.text);
+                alert('Something went wrong.');
+            }
         );
 
         setUserEmail("");

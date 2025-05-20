@@ -43,11 +43,10 @@ function ShoppingList() {
       ingredients.forEach(({ category, name }) => {
         if (!map[category]) map[category] = {};
 
-        const lowerName = name.trim().toLowerCase(); // Normalize
-        if (!map[category][lowerName]) {
-          map[category][lowerName] = { name, count: 1, selected: true };
+        if (!map[category][name]) {
+          map[category][name] = { name, count: 1, selected: true };
         } else {
-          map[category][lowerName].count += 1;
+          map[category][name].count += 1;
         }
       });
     });
@@ -91,7 +90,7 @@ function ShoppingList() {
           <h3>Ingredients Needed:</h3>
           {Object.entries(ingredientsByCategory).map(([category, ingredients]) => (
             <div key={category}>
-              <h4 className="category-box">{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
+              <h4 className="category-box">{category}</h4>
               <ul>
                 {ingredients.map(({ name, selected, count }, index) => (
                   <li key={`${name}-${index}`}>

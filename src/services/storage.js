@@ -11,8 +11,8 @@ export const saveMealsToStorage = (meals) => {
 };
 
 export const addMealToStorage = (meal) => {
-  const meals = getMeals();
-  saveMeals([...meals, meal]);
+  const meals = getMealsFromStorage();
+  saveMealsToStorage([...meals, meal]);
 };
 
 export const updateMealInStorage = (id, updatedMeal) => {

@@ -4,13 +4,13 @@
     "name": "Spaghetti Bolognese",
     "image": "/images/spaghetti-bolognese.jpeg",
     "ingredients": [
-      {"name": "spaghetti", "category": "other"},
-      {"name": "minced beef", "category": "meat"},
-      {"name": "onion", "category": "fruit & veg"},
-      {"name": "garlic", "category": "fruit & veg"},
-      {"name": "tomato sauce", "category": "other"},
-      {"name": "olive oil", "category": "other"},
-      {"name": "basil", "category": "other"}
+      {"name": "spaghetti", "category": "Pantry"},
+      {"name": "minced beef", "category": "Meat"},
+      {"name": "onion", "category": "Vegetable"},
+      {"name": "garlic", "category": "Vegetable"},
+      {"name": "tomato sauce", "category": "Sauce"},
+      {"name": "olive oil", "category": "Other"},
+      {"name": "basil", "category": "Spices"}
     ],
     "type": "Dinner"
   },
@@ -19,26 +19,11 @@
     "name": "Chicken Caesar Salad",
     "image": "/images/chicken-caesar-salad.jpg",
     "ingredients": [
-      {
-        "name": "chicken breast",
-        "category": "meat"
-      },
-      {
-        "name": "romaine lettuce",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "croutons",
-        "category": "bread"
-      },
-      {
-        "name": "parmesan",
-        "category": "dairy"
-      },
-      {
-        "name": "caesar dressing",
-        "category": "other"
-      }
+      {"name": "chicken breast", "category": "Meat"},
+      {"name": "romaine lettuce", "category": "Vegetable"},
+      {"name": "croutons", "category": "Bread"},
+      {"name": "parmesan", "category": "Dairy"},
+      {"name": "caesar dressing", "category": "Sauce"}
     ],
     "type": "Dinner"
   },
@@ -47,30 +32,12 @@
     "name": "Omelette",
     "image": "/images/omelette.jpg",
     "ingredients": [
-      {
-        "name": "eggs",
-        "category": "dairy"
-      },
-      {
-        "name": "milk",
-        "category": "dairy"
-      },
-      {
-        "name": "cheddar cheese",
-        "category": "dairy"
-      },
-      {
-        "name": "spinach",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "salt",
-        "category": "other"
-      },
-      {
-        "name": "pepper",
-        "category": "other"
-      }
+      {"name": "eggs", "category": "Dairy"},
+      {"name": "milk", "category": "Dairy"},
+      {"name": "cheddar cheese", "category": "Dairy"},
+      {"name": "spinach", "category": "Vegetable"},
+      {"name": "salt", "category": "Spices"},
+      {"name": "pepper", "category": "Spices"}
     ],
     "type": "Breakfast"
   },
@@ -79,30 +46,12 @@
     "name": "Stir-Fried Veggie Noodles",
     "image": "/images/stir-fried-veggie-noodles.jpg",
     "ingredients": [
-      {
-        "name": "noodles",
-        "category": "other"
-      },
-      {
-        "name": "bell pepper",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "broccoli",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "soy sauce",
-        "category": "other"
-      },
-      {
-        "name": "garlic",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "sesame oil",
-        "category": "other"
-      }
+      {"name": "noodles", "category": "Pantry"},
+      {"name": "bell pepper", "category": "Vegetable"},
+      {"name": "broccoli", "category": "Vegetable"},
+      {"name": "soy sauce", "category": "Sauce"},
+      {"name": "garlic", "category": "Vegetable"},
+      {"name": "sesame oil", "category": "Other"}
     ],
     "type": "Dinner"
   },
@@ -111,18 +60,9 @@
     "name": "Grilled Cheese Sandwich",
     "image": "/images/grilled-cheese-sandwich.jpg",
     "ingredients": [
-      {
-        "name": "bread",
-        "category": "bread"
-      },
-      {
-        "name": "cheddar cheese",
-        "category": "dairy"
-      },
-      {
-        "name": "butter",
-        "category": "dairy"
-      }
+      {"name": "bread", "category": "Bread"},
+      {"name": "cheddar cheese", "category": "Dairy"},
+      {"name": "butter", "category": "Dairy"}
     ],
     "type": "Lunch"
   },
@@ -131,30 +71,12 @@
     "name": "Chicken Curry",
     "image": "/images/chicken-curry.jpg",
     "ingredients": [
-      {
-        "name": "chicken breast",
-        "category": "meat"
-      },
-      {
-        "name": "onion",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "garlic",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "coconut milk",
-        "category": "other"
-      },
-      {
-        "name": "curry powder",
-        "category": "other"
-      },
-      {
-        "name": "rice",
-        "category": "other"
-      }
+      {"name": "chicken breast", "category": "Meat"},
+      {"name": "onion", "category": "Vegetable"},
+      {"name": "garlic", "category": "Vegetable"},
+      {"name": "coconut milk", "category": "Other"},
+      {"name": "curry powder", "category": "Spices"},
+      {"name": "rice", "category": "Pantry"}
     ],
     "type": "Dinner"
   },
@@ -163,18 +85,9 @@
     "name": "Weetabix",
     "image": "",
     "ingredients": [
-      {
-        "name": "weetabix",
-        "category": "other"
-      },
-      {
-        "name": "milk",
-        "category": "dairy"
-      },
-      {
-        "name": "honey",
-        "category": "other"
-      }
+      {"name": "weetabix", "category": "Pantry"},
+      {"name": "milk", "category": "Dairy"},
+      {"name": "honey", "category": "Other"}
     ],
     "type": "Breakfast"
   },
@@ -183,26 +96,11 @@
     "name": "Spice Bag",
     "image": "/images/spice-bag.jpeg",
     "ingredients": [
-      {
-        "name": "chicken",
-        "category": "meat"
-      },
-      {
-        "name": "peppers",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "onions",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "spice bag mix",
-        "category": "other"
-      },
-      {
-        "name": "potatoes",
-        "category": "fruit & veg"
-      }
+      {"name": "chicken", "category": "Meat"},
+      {"name": "peppers", "category": "Vegetable"},
+      {"name": "onions", "category": "Vegetable"},
+      {"name": "spice bag mix", "category": "Spices"},
+      {"name": "potatoes", "category": "Vegetable"}
     ],
     "type": "Dinner"
   },
@@ -211,30 +109,12 @@
     "name": "Bacon Egg & Cheese",
     "image": "",
     "ingredients": [
-      {
-        "name": "bread",
-        "category": "bread"
-      },
-      {
-        "name": "bacon",
-        "category": "meat"
-      },
-      {
-        "name": "eggs",
-        "category": "dairy"
-      },
-      {
-        "name": "cheese",
-        "category": "dairy"
-      },
-      {
-        "name": "butter",
-        "category": "dairy"
-      },
-      {
-        "name": "sriracha",
-        "category": "other"
-      }
+      {"name": "bread", "category": "Bread"},
+      {"name": "bacon", "category": "Meat"},
+      {"name": "eggs", "category": "Dairy"},
+      {"name": "cheese", "category": "Dairy"},
+      {"name": "butter", "category": "Dairy"},
+      {"name": "sriracha", "category": "Sauce"}
     ],
     "type": "Lunch"
   },
@@ -243,26 +123,11 @@
     "name": "Steak",
     "image": "",
     "ingredients": [
-      {
-        "name": "steak",
-        "category": "meat"
-      },
-      {
-        "name": "potatoes",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "carrots",
-        "category": "fruit & veg"
-      },
-      {
-        "name": "gravy",
-        "category": "other"
-      },
-      {
-        "name": "butter",
-        "category": "dairy"
-      }
+      {"name": "steak", "category": "Meat"},
+      {"name": "potatoes", "category": "Vegetable"},
+      {"name": "carrots", "category": "Vegetable"},
+      {"name": "gravy", "category": "Sauce"},
+      {"name": "butter", "category": "Dairy"}
     ],
     "type": "Dinner"
   },
@@ -271,8 +136,8 @@
     "name": "Hummus & Crackers",
     "image": "/images/hummus-crackers.jpg",
     "ingredients": [
-      {"name": "hummus", "category": "other"},
-      {"name": "crackers", "category": "other"}
+      {"name": "hummus", "category": "Other"},
+      {"name": "crackers", "category": "Pantry"}
     ],
     "type": "Snacks"
   }
