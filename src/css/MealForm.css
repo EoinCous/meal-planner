@@ -1,0 +1,32 @@
+.meal-form {
+  max-width: 600px;
+  margin: auto;
+}
+
+.meal-form h2 {
+    margin-bottom: 20px;
+}
+
+.meal-form .meal-type {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* space between label and select */
+  margin-bottom: 1rem;
+}
+
+.meal-form label {
+  white-space: nowrap; /* prevents wrapping */
+}
+
+.meal-form .ingredient-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.meal-form .bottom-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

@@ -43,6 +43,7 @@ function EmailForm({ ingredientsByCategory }){
                 placeholder="johnsmith@example.com"
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
+                maxLength={100}
                 required
                 />
                 <button type="submit">Email</button>
