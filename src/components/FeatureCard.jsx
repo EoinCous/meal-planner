@@ -7,7 +7,7 @@ function FeatureCard({ title, description, buttonText, imageSrc, imageAlt, image
         {imagePosition === "left" && (
           <img src={imageSrc} alt={imageAlt} />
         )}
-        <div>
+        <div className="information">
           <h2>{title}</h2>
           <p>{description}</p>
           <button onClick={onClick}>{buttonText}</button>

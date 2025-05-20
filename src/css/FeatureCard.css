@@ -40,3 +40,18 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .feature-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature-card .information {
+    width: 100%;
+  }
+
+  .feature-card img {
+    display: none;
+  }
+}

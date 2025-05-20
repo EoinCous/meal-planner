@@ -16,7 +16,6 @@ function NewMeal() {
     e.preventDefault();
 
     const storedMeals = getMealsFromStorage();
-    console.log(`Stored meals length: ${storedMeals.length}`)
     const newMeal = {
       id: storedMeals.length + 1,
       name: sanitiseInput(meal.name),

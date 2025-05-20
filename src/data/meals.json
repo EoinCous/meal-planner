@@ -83,7 +83,7 @@
   {
     "id": 7,
     "name": "Weetabix",
-    "image": "",
+    "image": null,
     "ingredients": [
       {"name": "weetabix", "category": "Pantry"},
       {"name": "milk", "category": "Dairy"},
@@ -107,7 +107,7 @@
   {
     "id": 9,
     "name": "Bacon Egg & Cheese",
-    "image": "",
+    "image": null,
     "ingredients": [
       {"name": "bread", "category": "Bread"},
       {"name": "bacon", "category": "Meat"},
@@ -121,7 +121,7 @@
   {
     "id": 10,
     "name": "Steak",
-    "image": "",
+    "image": null,
     "ingredients": [
       {"name": "steak", "category": "Meat"},
       {"name": "potatoes", "category": "Vegetable"},

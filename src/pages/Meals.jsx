@@ -21,7 +21,6 @@ function Meals(){
         <div className='meals'>
             <div className='header'>
                 <h2>Get inspiration for your meal plan</h2>
-                <button className="plan-meals-btn" onClick={() => navigate("/planner")}>Plan Meals</button>
             </div>
             <div className='filter'>
                 <MealFilter selectedType={filter} onSelect={setFilter} />
@@ -37,6 +36,7 @@ function Meals(){
                     refreshPage()
                 }}>Reset default meals</button>
                 <button onClick={() => navigate("/meals/new")}>Add new meal</button>
+                <button className="plan-meals-btn" onClick={() => navigate("/planner")}>Plan Meals</button>
             </div>
         </div>
     )

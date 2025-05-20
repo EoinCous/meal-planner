@@ -9,7 +9,7 @@ function EditMeal() {
 
   useEffect(() => {
     const meals = getMealsFromStorage();
-    const foundMeal = meals.find(m => m.id === parseInt(id));
+    const foundMeal = meals.find(meal => meal.id === parseInt(id));
     if (!foundMeal) {
       navigate("/meals");
     } else {
@@ -21,11 +21,11 @@ function EditMeal() {
     e.preventDefault();
     const updatedMeal = {
       ...meal,
-      ingredients: meal.ingredients.map(ing => ({
-        name: ing.name,
-        category: ing.category === "Other" && ing.customCategory
-          ? ing.customCategory
-          : ing.category
+      ingredients: meal.ingredients.map(ingredient => ({
+        name: ingredient.name,
+        category: ingredient.category === "Other" && ingredient.customCategory
+          ? ingredient.customCategory
+          : ingredient.category
       }))
     };
     updateMealInStorage(updatedMeal.id, updatedMeal);
