@@ -6,8 +6,10 @@
 }
 
 .meal-detail-image {
-  width: 30%;
+  width: auto;
   height: auto;
+  max-width: 600px;
+  max-height: 400px;
   border-radius: 8px;
   flex: 1;
 }

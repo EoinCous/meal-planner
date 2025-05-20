@@ -52,7 +52,7 @@ function NewMeal() {
             value={name} 
             type="text"
             onChange={(e) => setName(e.target.value)} 
-            maxLength={100} 
+            maxLength={40} 
             placeholder="Beans on toast"
             required 
           />

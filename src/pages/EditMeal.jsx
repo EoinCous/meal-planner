@@ -52,7 +52,7 @@ function EditMeal() {
             value={meal.name}
             type="text"
             onChange={(e) => setMeal({ ...meal, name: e.target.value })}
-            maxLength={100}
+            maxLength={40}
             required
           />
         </label>

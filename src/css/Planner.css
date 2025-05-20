@@ -1,15 +1,23 @@
-.planner-table {
+.planner h2 {
+  margin-bottom: 1rem;
+}
+
+.planner-wrapper {
     overflow-x: auto;
     margin: 20px auto;
     max-width: 100%;
-    border-collapse: collapse;
     width: 100%;
     min-width: 700px;
-    font-family: Arial, sans-serif;
 }
 
-.planner-table th,
-.planner-table td {
+.planner-wrapper table {
+  width: max-content; /* allows the table to grow horizontally */
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.planner th,
+.planner td {
   border: 1px solid #ccc;
   padding: 30px 10px;
   text-align: center;
@@ -39,7 +47,7 @@
 }
 
 .selected-meals {
-    margin-top: 6px;
+  margin-top: 6px;
   font-size: 13px;
   color: #333;
   line-height: 1.4;
