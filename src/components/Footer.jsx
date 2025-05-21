@@ -10,7 +10,7 @@ function Footer() {
         <Link to="/planner">Planner</Link>
         <Link to="/shopping-list">Shopping List</Link>
       </nav>
-      <p>&copy; {new Date().getFullYear()} Feed Me</p>
+      <p>&copy; {new Date().getFullYear()} BitePlan</p>
     </footer>
   );
 }

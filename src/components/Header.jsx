@@ -10,7 +10,7 @@ function Header() {
     <header className='header'>
       <nav className="navbar">
           <div className="logo">
-              <Link to="/" onClick={() => setMenuOpen(false)}>Feed Me</Link>
+              <Link to="/" onClick={() => setMenuOpen(false)}>BitePlan</Link>
           </div>
 
         <button className="burger" onClick={toggleMenu}>

@@ -15,7 +15,8 @@
 }
 
 .meal-form label {
-  white-space: nowrap; /* prevents wrapping */
+  white-space: nowrap;
+  font-weight: bold;
 }
 
 .meal-form .ingredient-row {
@@ -24,9 +25,17 @@
   margin-bottom: 10px;
 }
 
+.meal-form .ingredient-row input {
+  width: 100%;
+}
+
+.meal-form .remove-btn {
+  background-color: red;
+}
+
 .meal-form .bottom-btns {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 40px auto 20px auto;
 }

@@ -64,7 +64,7 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
               type="text"
               value={ingredient.name}
               onChange={(e) => handleIngredientChange(index, "name", e.target.value)}
-              maxLength={100}
+              maxLength={50}
               required
             />
             <select
@@ -85,11 +85,11 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
                 onChange={(e) =>
                   handleIngredientChange(index, "customCategory", e.target.value)
                 }
-                maxLength={100}
+                maxLength={50}
               />
             )}
             {meal.ingredients.length > 1 && (
-              <button type="button" onClick={() => removeIngredient(index)}>Remove</button>
+              <button className="remove-btn" type="button" onClick={() => removeIngredient(index)}>X</button>
             )}
           </div>
         ))}
