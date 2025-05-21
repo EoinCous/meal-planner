@@ -17,7 +17,7 @@ import EditMeal from './pages/EditMeal'
 function App() {
   useEffect(() => {
     const existingMeals = getMealsFromStorage();
-    if(!existingMeals){
+    if(!existingMeals || existingMeals.length === 0){
       saveMealsToStorage(defaultMeals);
     }
   }, []);
