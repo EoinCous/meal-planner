@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getMealsFromStorage, updateMealInStorage } from "../services/storage";
+import MealForm from "../components/MealForm";
 
 function EditMeal() {
   const { id } = useParams();

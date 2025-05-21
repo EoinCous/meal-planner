@@ -23,3 +23,29 @@
   margin-bottom: 1rem;
   color: #555;
 }
+
+.meal-detail-info .buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .meal-detail {
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+  }
+
+  .meal-detail-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .meal-detail-info {
+    width: 100%;
+  }
+}

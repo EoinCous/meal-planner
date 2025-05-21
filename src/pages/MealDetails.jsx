@@ -21,19 +21,21 @@ function MealDetails(){
 
   return (
     <div className="meal-detail">
-      <div className="meal-detail-info">
-        <h2>{meal.name}</h2>
-        <p><strong>Type:</strong> {meal.type}</p>
-        <p><strong>Ingredients:</strong> {meal.ingredients.map(ingredient => ingredient.name).join(", ")}</p>
-        <p><strong>Recipe:</strong> ?</p>
-        <button onClick={() => navigate(`/meal/${meal.id}/edit`)}>Edit</button>
-        <button onClick={() => deleteMeal()}>Delete</button>
-      </div>
       <img 
         src={meal.image} 
         alt={meal.name} 
         className="meal-detail-image" 
       />
+      <div className="meal-detail-info">
+        <h2>{meal.name}</h2>
+        <p><strong>Type:</strong> {meal.type}</p>
+        <p><strong>Ingredients:</strong> {meal.ingredients.map(ingredient => ingredient.name).join(", ")}</p>
+        <p><strong>Recipe:</strong> ?</p>
+        <div className='buttons'>
+          <button onClick={() => navigate(`/meal/${meal.id}/edit`)}>Edit</button>
+          <button onClick={() => deleteMeal()}>Delete</button>
+        </div>
+      </div>
     </div>
   );
 }
