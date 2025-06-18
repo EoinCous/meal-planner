@@ -1,0 +1,50 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getMeals, addMeal } from "../services/storage";
+import { sanitiseInput } from "../services/security";
+import MealForm from "../components/MealForm";
+
+function NewMeal() {
+  const navigate = useNavigate();
+  const [meal, setMeal] = useState({
+    name: "",
+    type: "Breakfast",
+    ingredients: [{ name: "", category: "", customCategory: "" }]
+  });
+  const [storedMeals, setStoredMeals] = useState([]);
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      const meals = await getMeals();
+      setStoredMeals(meals);
+    };
+
+    fetchMeals();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newMeal = {
+      id: storedMeals.length > 0 ? Math.max(...storedMeals.map(m => m.id)) + 1 : 1,
+      name: sanitiseInput(meal.name),
+      type: meal.type,
+      ingredients: meal.ingredients.map((ingredient) => ({
+        name: sanitiseInput(ingredient.name),
+        category:
+          ingredient.category === "Other" && ingredient.customCategory
+            ? sanitiseInput(ingredient.customCategory)
+            : sanitiseInput(ingredient.category)
+      }))
+    };
+
+    await addMeal(newMeal);
+    navigate("/meals");
+  };
+
+  return (
+    <MealForm meal={meal} setMeal={setMeal} onSubmit={handleSubmit} mode="add" />
+  );
+}
+
+export default NewMeal;
