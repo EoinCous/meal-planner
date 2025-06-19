@@ -4,7 +4,7 @@ import Meal from '../models/Meal.js';
 const router = express.Router();
 
 // Get all meals
-router.get('/', async (req, res) => {
+router.get('/', async (res) => {
     try {
         const meals = await Meal.find();
         res.json(meals);

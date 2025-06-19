@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMeals, addMeal } from "../services/storage";
+import { addMeal } from "../services/storage";
 import { sanitiseInput } from "../services/security";
 import MealForm from "../components/MealForm";
 
@@ -11,22 +11,11 @@ function NewMeal() {
     type: "Breakfast",
     ingredients: [{ name: "", category: "", customCategory: "" }]
   });
-  const [storedMeals, setStoredMeals] = useState([]);
-
-  useEffect(() => {
-    const fetchMeals = async () => {
-      const meals = await getMeals();
-      setStoredMeals(meals);
-    };
-
-    fetchMeals();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newMeal = {
-      id: storedMeals.length > 0 ? Math.max(...storedMeals.map(m => m.id)) + 1 : 1,
       name: sanitiseInput(meal.name),
       type: meal.type,
       ingredients: meal.ingredients.map((ingredient) => ({

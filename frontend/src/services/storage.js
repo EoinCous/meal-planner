@@ -4,7 +4,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export const getMeals = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/meals`);
+    const response = await fetch(`${API_BASE_URL}/api/meals`);
     if (!response.ok) throw new Error('Server error');
     const data = await response.json();
     saveMealsToStorage(data); // Optional: Sync with localStorage
@@ -26,7 +26,7 @@ export const getMealsFromStorage = () => {
 
 export const addMeal = async (meal) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/meals`, {
+    const response = await fetch(`${API_BASE_URL}/api/meals`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(meal)
@@ -47,7 +47,7 @@ export const addMealToStorage = (meal) => {
 
 export const updateMeal = async (id, updatedMeal) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/meals/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/meals/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedMeal)
@@ -68,7 +68,7 @@ export const updateMealInStorage = (id, updatedMeal) => {
 
 export const deleteMeal = async (id) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/meals/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/meals/${id}`, {
     method: 'DELETE'
   });
   if (!response.ok) throw new Error('Failed to delete meal');

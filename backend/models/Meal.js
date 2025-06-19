@@ -1,11 +1,17 @@
-// backend/models/Meal.js
 import mongoose from 'mongoose';
 
-const mealSchema = new mongoose.Schema({
-    name: String,
-    type: String,
-    image: String,
-    description: String,
+const ingredientSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  category: { type: String, required: true }
 });
 
-export default mongoose.model('Meal', mealSchema);
+const mealSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  image: { type: String, required: true },
+  ingredients: { type: [ingredientSchema], required: true },
+  type: { type: String, required: true }
+});
+
+const Meal = mongoose.model('Meal', mealSchema);
+
+export default Meal;
