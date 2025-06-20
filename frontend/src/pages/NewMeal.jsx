@@ -8,8 +8,9 @@ function NewMeal() {
   const navigate = useNavigate();
   const [meal, setMeal] = useState({
     name: "",
+    image: "",
+    ingredients: [{ name: "", category: "", customCategory: "" }],
     type: "Breakfast",
-    ingredients: [{ name: "", category: "", customCategory: "" }]
   });
 
   const handleSubmit = async (e) => {
@@ -17,14 +18,15 @@ function NewMeal() {
 
     const newMeal = {
       name: sanitiseInput(meal.name),
-      type: meal.type,
+      image: sanitiseInput(meal.image),
       ingredients: meal.ingredients.map((ingredient) => ({
         name: sanitiseInput(ingredient.name),
         category:
           ingredient.category === "Other" && ingredient.customCategory
             ? sanitiseInput(ingredient.customCategory)
             : sanitiseInput(ingredient.category)
-      }))
+      })),
+      type: meal.type
     };
 
     await addMeal(newMeal);

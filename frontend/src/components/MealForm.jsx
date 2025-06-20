@@ -29,7 +29,7 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
       <h2>{mode === "edit" ? "Edit Meal" : "Add a New Meal"}</h2>
       <form onSubmit={onSubmit}>
         <label>
-          Meal Name:
+          Meal Name: 
           <input
             value={meal.name}
             type="text"
@@ -40,59 +40,71 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
           />
         </label>
 
-        <div className="meal-type">
-          <label>
-            Meal Type:
-            <select
-              value={meal.type}
-              onChange={(e) => setMeal({ ...meal, type: e.target.value })}
-              required
-            >
-              <option>Breakfast</option>
-              <option>Lunch</option>
-              <option>Dinner</option>
-              <option>Snacks</option>
-            </select>
-          </label>
-        </div>
+        <label>
+          Meal Type: 
+          <select
+            value={meal.type}
+            onChange={(e) => setMeal({ ...meal, type: e.target.value })}
+            required
+          >
+            <option>Breakfast</option>
+            <option>Lunch</option>
+            <option>Dinner</option>
+            <option>Snacks</option>
+          </select>
+        </label>
 
-        <h4>Ingredients</h4>
-        {meal.ingredients.map((ingredient, index) => (
-          <div key={index} className="ingredient-row">
-            <input
-              placeholder="Name"
-              type="text"
-              value={ingredient.name}
-              onChange={(e) => handleIngredientChange(index, "name", e.target.value)}
-              maxLength={50}
-              required
-            />
-            <select
-              value={ingredient.category}
-              onChange={(e) => handleIngredientChange(index, "category", e.target.value)}
-              required
-            >
-              <option value="" disabled>Select Category</option>
-              {predefinedCategories.map(category => (
-                <option key={category} value={category}>{category}</option>
-              ))}
-            </select>
-            {ingredient.category === "Other" && (
+        <label>
+          Meal Image: 
+          <input
+            value={meal.image}
+            type="text"
+            onChange={(e) => setMeal({ ...meal, image: e.target.value })}
+            maxLength={80}
+            placeholder="/images/chicken-curry.jpg"
+          />
+        </label>
+
+        <label>
+          Ingredients:
+          {meal.ingredients.map((ingredient, index) => (
+            <div key={index} className="ingredient-row">
               <input
-                placeholder="Custom Category"
+                placeholder="Name"
                 type="text"
-                value={ingredient.customCategory || ""}
-                onChange={(e) =>
-                  handleIngredientChange(index, "customCategory", e.target.value)
-                }
+                value={ingredient.name}
+                onChange={(e) => handleIngredientChange(index, "name", e.target.value)}
                 maxLength={50}
+                required
               />
-            )}
-            {meal.ingredients.length > 1 && (
-              <button className="remove-btn" type="button" onClick={() => removeIngredient(index)}>X</button>
-            )}
-          </div>
-        ))}
+              <select
+                value={ingredient.category}
+                onChange={(e) => handleIngredientChange(index, "category", e.target.value)}
+                required
+              >
+                <option value="" disabled>Select Category</option>
+                {predefinedCategories.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+              {ingredient.category === "Other" && (
+                <input
+                  placeholder="Custom Category"
+                  type="text"
+                  value={ingredient.customCategory || ""}
+                  onChange={(e) =>
+                    handleIngredientChange(index, "customCategory", e.target.value)
+                  }
+                  maxLength={50}
+                />
+              )}
+              {meal.ingredients.length > 1 && (
+                <button className="remove-btn" type="button" onClick={() => removeIngredient(index)}>X</button>
+              )}
+            </div>
+          ))}
+        </label>
+        
         <div className="bottom-btns">
           <button type="button" onClick={addIngredient}>Add Ingredient</button>
           <button type="submit">{mode === "edit" ? "Save Changes" : "Add Meal"}</button>

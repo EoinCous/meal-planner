@@ -12,7 +12,7 @@ function MealDetails() {
   useEffect(() => {
     const fetchMeal = async () => {
       const meals = await getMeals();
-      const foundMeal = meals.find(meal => meal.id === parseInt(id));
+      const foundMeal = meals.find(meal => meal._id === id);
       setMeal(foundMeal);
     };
 
@@ -24,7 +24,7 @@ function MealDetails() {
   }
 
   const removeMeal = async () => {
-    await deleteMeal(meal.id);
+    await deleteMeal(meal._id);
     saveMealPlanToStorage({});
     navigate("/meals");
   };
@@ -42,7 +42,7 @@ function MealDetails() {
         <p><strong>Ingredients:</strong> {meal.ingredients.map(ingredient => ingredient.name).join(", ")}</p>
         <p><strong>Recipe:</strong> ?</p>
         <div className='buttons'>
-          <button onClick={() => navigate(`/meal/${meal.id}/edit`)}>Edit</button>
+          <button onClick={() => navigate(`/meal/${meal._id}/edit`)}>Edit</button>
           <button onClick={removeMeal}>Delete</button>
         </div>
       </div>

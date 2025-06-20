@@ -13,7 +13,7 @@ function EditMeal() {
     const fetchMeal = async () => {
       try {
         const meals = await getMeals();
-        const foundMeal = meals.find(meal => meal.id === parseInt(id));
+        const foundMeal = meals.find(meal => meal._id === id);
         if (!foundMeal) {
           navigate("/meals");
         } else {
@@ -45,7 +45,7 @@ function EditMeal() {
     };
 
     try {
-      await updateMeal(updatedMeal.id, updatedMeal);
+      await updateMeal(updatedMeal._id, updatedMeal);
       navigate("/meals");
     } catch (error) {
       console.error("Error updating meal:", error);
