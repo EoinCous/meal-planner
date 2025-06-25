@@ -11,9 +11,6 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect(`mongodb+srv://EoinCous:${process.env.PASSWORD}@cluster0.tkfllsx.mongodb.net/?retryWrites=true&w=majority&appName=${process.env.DATABASE}`)
-// mongoose.connect(
-//     `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.tkfllsx.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`
-// )
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 

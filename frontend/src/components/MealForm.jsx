@@ -35,7 +35,7 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
             type="text"
             onChange={(e) => setMeal({ ...meal, name: e.target.value })}
             maxLength={40}
-            placeholder="Beans on toast"
+            placeholder="Chicken curry"
             required
           />
         </label>
