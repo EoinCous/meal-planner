@@ -12,6 +12,21 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
     setMeal({ ...meal, ingredients: updatedIngredients });
   };
 
+  const handleImageUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "unsigned_meal_uploads");
+
+    const res = await fetch("https://api.cloudinary.com/v1_1/dfph3pf0x/image/upload", {
+      method: "POST",
+      body: formData,
+    });
+    console.log(res);
+    const data = await res.json();
+    
+    return data.secure_url; // Image URL to send to your backend
+  };
+
   const addIngredient = () => {
     setMeal({
       ...meal,
@@ -57,11 +72,9 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
         <label>
           Meal Image: 
           <input
-            value={meal.image}
-            type="text"
-            onChange={(e) => setMeal({ ...meal, image: e.target.value })}
-            maxLength={80}
-            placeholder="/images/chicken-curry.jpg"
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleImageUpload(e.target.files[0])}
           />
         </label>
 
