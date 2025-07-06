@@ -16,9 +16,6 @@
   --p: 18px/30px var(--ff);
 }
 
-/* ======================== */
-/* Reset + Global Styles    */
-/* ======================== */
 * {
   margin: 0;
   padding: 0;
@@ -40,9 +37,6 @@ body {
   padding-top: 60px;
 }
 
-/* ======================== */
-/* Typography               */
-/* ======================== */
 h1 {
   font: var(--h1);
   margin-top: 8px;
@@ -63,9 +57,6 @@ p {
   margin-top: 8px;
 }
 
-/* ======================== */
-/* Buttons                  */
-/* ======================== */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -83,9 +74,6 @@ button:hover {
   background-color: #347537;
 }
 
-/* ======================== */
-/* Form Inputs              */
-/* ======================== */
 input[type="text"] {
   padding: 0.6rem 1rem;
   font-size: 1rem;

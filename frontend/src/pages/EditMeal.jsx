@@ -30,12 +30,10 @@ function EditMeal() {
     fetchMeal();
   }, [id, navigate]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (newMealData) => {
     const updatedMeal = {
-      ...meal,
-      ingredients: meal.ingredients.map(ingredient => ({
+      ...newMealData,
+      ingredients: newMealData.ingredients.map(ingredient => ({
         name: ingredient.name,
         category:
           ingredient.category === "Other" && ingredient.customCategory

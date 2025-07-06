@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(`mongodb+srv://EoinCous:${process.env.PASSWORD}@cluster0.tkfllsx.mongodb.net/?retryWrites=true&w=majority&appName=${process.env.DATABASE}`)
+mongoose.connect(`${process.env.MONGODB_URI}`)
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 

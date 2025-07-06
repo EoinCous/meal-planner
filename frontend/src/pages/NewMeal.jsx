@@ -13,20 +13,18 @@ function NewMeal() {
     type: "Breakfast",
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (newMealData) => {
     const newMeal = {
-      name: sanitiseInput(meal.name),
-      image: sanitiseInput(meal.image),
-      ingredients: meal.ingredients.map((ingredient) => ({
+      name: sanitiseInput(newMealData.name),
+      image: sanitiseInput(newMealData.image),
+      ingredients: newMealData.ingredients.map((ingredient) => ({
         name: sanitiseInput(ingredient.name),
         category:
           ingredient.category === "Other" && ingredient.customCategory
             ? sanitiseInput(ingredient.customCategory)
             : sanitiseInput(ingredient.category)
       })),
-      type: meal.type
+      type: newMealData.type
     };
 
     await addMeal(newMeal);

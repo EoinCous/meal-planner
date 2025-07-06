@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "../css/MealForm.css";
 
 const predefinedCategories = [
@@ -6,25 +7,12 @@ const predefinedCategories = [
 ];
 
 function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
+  const [mealImageFile, setMealImageFile] = useState(null);
+
   const handleIngredientChange = (index, field, value) => {
     const updatedIngredients = [...meal.ingredients];
     updatedIngredients[index][field] = value;
     setMeal({ ...meal, ingredients: updatedIngredients });
-  };
-
-  const handleImageUpload = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "unsigned_meal_uploads");
-
-    const res = await fetch("https://api.cloudinary.com/v1_1/dfph3pf0x/image/upload", {
-      method: "POST",
-      body: formData,
-    });
-    console.log(res);
-    const data = await res.json();
-    
-    return data.secure_url; // Image URL to send to your backend
   };
 
   const addIngredient = () => {
@@ -39,10 +27,49 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
     setMeal({ ...meal, ingredients: updated });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let imageUrl = meal.image || "";
+
+    // Upload image if a file was selected
+    if (mealImageFile) {
+      const formData = new FormData();
+      formData.append("file", mealImageFile);
+      formData.append("upload_preset", "unsigned_meal_uploads");
+
+      try {
+        const cloudinaryUrl = import.meta.env.VITE_CLOUDINARY_URL;
+        const res = await fetch(`${cloudinaryUrl}/image/upload`, {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          console.error("Image upload error:", data);
+          alert("Image upload failed. Please try again.");
+          return;
+        }
+        console.log(data.secure_url)
+        imageUrl = data.secure_url;
+      } catch (err) {
+        console.error("Upload failed:", err);
+        alert("Image upload error. Try again.");
+        return;
+      }
+    }
+
+    // Send full meal data (including image URL) to parent
+    const finalMeal = { ...meal, image: imageUrl };
+    onSubmit(finalMeal);
+  };
+
   return (
     <div className="meal-form">
       <h2>{mode === "edit" ? "Edit Meal" : "Add a New Meal"}</h2>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <label>
           Meal Name: 
           <input
@@ -74,9 +101,24 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => handleImageUpload(e.target.files[0])}
+            onChange={(e) => setMealImageFile(e.target.files[0])}
           />
         </label>
+
+        {(mealImageFile || (mode === "edit" && meal.image)) && (
+          <div className="image-preview">
+            <p>Preview:</p>
+            <img
+              src={
+                mealImageFile
+                  ? URL.createObjectURL(mealImageFile)  // New image preview
+                  : meal.image                         // Existing image
+              }
+              alt="Meal Preview"
+              style={{ maxWidth: "200px", marginTop: "0.5rem" }}
+            />
+          </div>
+        )}
 
         <label>
           Ingredients:
