@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getMealsFromStorage, getMealPlanFromStorage } from "../services/storage";
+import { getMeals, getMealPlanFromStorage } from "../services/storage";
 import "../css/ShoppingList.css";
 import EmailForm from "../components/EmailForm";
 
@@ -8,13 +8,20 @@ function ShoppingList() {
   const [ingredientsByCategory, setIngredientsByCategory] = useState({});
 
   useEffect(() => {
-    const meals = getMealsFromStorage();
-    const mealNames = extractMealNamesFromPlan();
-    const selectedMeals = mealNames.map(name => meals.find(meal => meal.name === name));
+    const fetchData = async () => {
+      const meals = await getMeals();
+      const mealNames = extractMealNamesFromPlan();
+      const selectedMeals = mealNames
+        .map(name => meals.find(meal => meal.name === name))
+        .filter(Boolean); // Optional: removes any undefined results
 
-    setGroupedMeals(groupMealsWithCount(selectedMeals));
-    setIngredientsByCategory(groupIngredientsByCategory(selectedMeals));
+      setGroupedMeals(groupMealsWithCount(selectedMeals));
+      setIngredientsByCategory(groupIngredientsByCategory(selectedMeals));
+    };
+
+    fetchData();
   }, []);
+
 
   const extractMealNamesFromPlan = () => {
     const mealPlan = getMealPlanFromStorage();

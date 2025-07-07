@@ -1,21 +1,25 @@
 import MealCard from '../components/MealCard';
 import MealFilter from '../components/MealFilter';
-import defaultMeals from '../data/meals.json';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../css/Meals.css";
-import { getMealsFromStorage, saveMealsToStorage } from '../services/storage';
+import { getMeals } from '../services/storage';
 
-function Meals(){
-    const meals = getMealsFromStorage();
-    
+function Meals() {
+    const [meals, setMeals] = useState([]);
     const [filter, setFilter] = useState("All");
-    const filteredMeals = filter === "All" ? meals : meals.filter(meal => meal.type === filter);
-
     const navigate = useNavigate();
-    const refreshPage = () => {
-    navigate(0); // This reloads the current route like a full page reload
-  };
+
+    useEffect(() => {
+        const fetchMeals = async () => {
+            const fetchedMeals = await getMeals();
+            setMeals(fetchedMeals);
+        };
+
+        fetchMeals();
+    }, []);
+
+    const filteredMeals = filter === "All" ? meals : meals.filter(meal => meal.type === filter);
 
     return (
         <div className='meals'>
@@ -27,19 +31,15 @@ function Meals(){
             </div>
             <div className='meals-grid'>
                 {filteredMeals.map(meal =>
-                    <MealCard meal={meal} key={meal.id} />
+                    <MealCard meal={meal} key={meal._id} />
                 )}
             </div>
             <div className='action-btns'>
-                <button onClick={() => {
-                    saveMealsToStorage(defaultMeals)
-                    refreshPage()
-                }}>Reset default meals</button>
                 <button onClick={() => navigate("/meals/new")}>Add new meal</button>
                 <button className="plan-meals-btn" onClick={() => navigate("/planner")}>Plan Meals</button>
             </div>
         </div>
-    )
+    );
 }
 
 export default Meals;

@@ -27,7 +27,7 @@ function Home() {
                     title="Meals"
                     description="Browse your saved meals and their ingredients."
                     buttonText="View Meals"
-                    imageSrc="/images/meals.jpg"
+                    imageSrc="/images/meals.webp"
                     imageAlt="Meals"
                     imagePosition="left"
                     onClick={() => navigate("/meals")}

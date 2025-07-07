@@ -1,7 +1,7 @@
 import "../css/Planner.css";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getMealPlanFromStorage, getMealsFromStorage, saveMealPlanToStorage } from "../services/storage";
+import { getMeals, getMealPlanFromStorage, saveMealPlanToStorage } from "../services/storage";
 
 function Planner() {
   const navigate = useNavigate();
@@ -9,9 +9,18 @@ function Planner() {
   const mealTypes = ["Breakfast", "Lunch", "Dinner", "Snacks"];
 
   const [mealPlan, setMealPlan] = useState(() => getMealPlanFromStorage());
+  const [meals, setMeals] = useState([]);
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      const fetchedMeals = await getMeals();
+      setMeals(fetchedMeals);
+    };
+
+    fetchMeals();
+  }, []);
 
   const getMealOptions = (type) => {
-    const meals = getMealsFromStorage();
     return meals.filter((meal) => meal.type.toLowerCase() === type.toLowerCase());
   };
 

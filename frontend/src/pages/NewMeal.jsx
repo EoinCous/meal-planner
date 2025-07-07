@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMealsFromStorage, addMealToStorage } from "../services/storage";
+import { addMeal } from "../services/storage";
 import { sanitiseInput } from "../services/security";
 import MealForm from "../components/MealForm";
 
@@ -8,27 +8,26 @@ function NewMeal() {
   const navigate = useNavigate();
   const [meal, setMeal] = useState({
     name: "",
+    image: "",
+    ingredients: [{ name: "", category: "", customCategory: "" }],
     type: "Breakfast",
-    ingredients: [{ name: "", category: "", customCategory: "" }]
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const storedMeals = getMealsFromStorage();
+  const handleSubmit = async (newMealData) => {
     const newMeal = {
-      id: storedMeals.length + 1,
-      name: sanitiseInput(meal.name),
-      type: meal.type,
-      ingredients: meal.ingredients.map((ingredient) => ({
+      name: sanitiseInput(newMealData.name),
+      image: sanitiseInput(newMealData.image),
+      ingredients: newMealData.ingredients.map((ingredient) => ({
         name: sanitiseInput(ingredient.name),
-        category: ingredient.category === "Other" && ingredient.customCategory
-          ? sanitiseInput(ingredient.customCategory)
-          : sanitiseInput(ingredient.category)
-      }))
+        category:
+          ingredient.category === "Other" && ingredient.customCategory
+            ? sanitiseInput(ingredient.customCategory)
+            : sanitiseInput(ingredient.category)
+      })),
+      type: newMealData.type
     };
 
-    addMealToStorage(newMeal);
+    await addMeal(newMeal);
     navigate("/meals");
   };
 

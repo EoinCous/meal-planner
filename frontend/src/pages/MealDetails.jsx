@@ -1,23 +1,33 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import "../css/MealDetails.css";
-import { deleteMealFromStorage, getMealsFromStorage, saveMealPlanToStorage } from '../services/storage';
-import { useNavigate } from 'react-router-dom';
+import { deleteMeal, getMeals, saveMealPlanToStorage } from '../services/storage';
+import { useState, useEffect } from 'react';
 
-function MealDetails(){
-  const meals = getMealsFromStorage();
+function MealDetails() {
   const { id } = useParams();
-  const meal = meals.find(meal => meal.id === parseInt(id));
+  const navigate = useNavigate();
+  
+  const [meal, setMeal] = useState(null);
+
+  useEffect(() => {
+    const fetchMeal = async () => {
+      const meals = await getMeals();
+      const foundMeal = meals.find(meal => meal._id === id);
+      setMeal(foundMeal);
+    };
+
+    fetchMeal();
+  }, [id]);
 
   if (!meal) {
-    return <div>Meal not found.</div>;
+    return <div>Loading...</div>;
   }
-  const navigate = useNavigate();
 
-  const deleteMeal = () => {
-    deleteMealFromStorage(meal.id)
-    navigate("/meals")
-    saveMealPlanToStorage({})
-  }
+  const removeMeal = async () => {
+    await deleteMeal(meal._id);
+    saveMealPlanToStorage({});
+    navigate("/meals");
+  };
 
   return (
     <div className="meal-detail">
@@ -32,8 +42,8 @@ function MealDetails(){
         <p><strong>Ingredients:</strong> {meal.ingredients.map(ingredient => ingredient.name).join(", ")}</p>
         <p><strong>Recipe:</strong> ?</p>
         <div className='buttons'>
-          <button onClick={() => navigate(`/meal/${meal.id}/edit`)}>Edit</button>
-          <button onClick={() => deleteMeal()}>Delete</button>
+          <button onClick={() => navigate(`/meal/${meal._id}/edit`)}>Edit</button>
+          <button onClick={removeMeal}>Delete</button>
         </div>
       </div>
     </div>

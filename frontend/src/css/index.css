@@ -14,11 +14,6 @@
   --h3: bold 24px/30px var(--ff);
   --links: bold 18px/18px var(--ff);
   --p: 18px/30px var(--ff);
-
-  color-scheme: light dark;
-  color: var(--coloursecondary);
-  background-color: var(--colourprimary);
-  font-family: var(--ff);
 }
 
 * {
@@ -29,21 +24,17 @@
 
 html, body {
   overflow-x: hidden;
+  font-family: var(--ff);
+  color-scheme: light dark;
+  background-color: var(--colourprimary);
+  color: var(--coloursecondary);
 }
 
 body {
-  margin: 0;
   width: 100%;
   min-height: 100vh;
   position: relative;
   padding-top: 60px;
-}
-
-#root {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 h1 {
@@ -81,11 +72,6 @@ button {
 
 button:hover {
   background-color: #347537;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 input[type="text"] {

@@ -5,7 +5,7 @@ function MealCard({meal}){
     
     return (
         <div className="meal-card">
-            <Link to={`/meal/${meal.id}`} className="meal-link">
+            <Link to={`/meal/${meal._id}`} className="meal-link">
                 <img
                     src={meal.image}
                     alt={meal.name}

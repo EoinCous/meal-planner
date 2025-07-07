@@ -16,7 +16,18 @@
   font-size: 2rem;
   font-weight: bold;
   color: var(--coloursecondary);
+  background-color: var(--colourprimary);
   text-decoration: none;
+  cursor: pointer;
+  height: 50px;
+  width: 150px;
+  border-radius: 20%;
+  border: 5px solid var(--coloursecondary);
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
 }
 
 .nav-links {
