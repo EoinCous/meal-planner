@@ -9,6 +9,7 @@ const predefinedCategories = [
 
 function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
   const [mealImageFile, setMealImageFile] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleIngredientChange = (index, field, value) => {
@@ -31,6 +32,7 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     let imageUrl = meal.image || "";
 
@@ -54,11 +56,12 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
           alert("Image upload failed. Please try again.");
           return;
         }
-        console.log(data.secure_url)
+
         imageUrl = data.secure_url;
       } catch (err) {
         console.error("Upload failed:", err);
         alert("Image upload error. Try again.");
+        setIsSubmitting(false);
         return;
       }
     }
@@ -164,7 +167,11 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
         
         <div className="bottom-btns">
           <button type="button" onClick={() => navigate("/meals")}>Cancel</button>
-          <button type="submit">{mode === "edit" ? "Save Changes" : "Add Meal"}</button>
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting
+              ? (mode === "edit" ? "Saving Changes..." : "Adding Meal...")
+              : (mode === "edit" ? "Save Changes" : "Add Meal")}
+          </button>
         </div>
       </form>
     </div>
