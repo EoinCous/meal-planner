@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../css/MealForm.css";
 
 const predefinedCategories = [
@@ -8,6 +9,7 @@ const predefinedCategories = [
 
 function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
   const [mealImageFile, setMealImageFile] = useState(null);
+  const navigate = useNavigate();
 
   const handleIngredientChange = (index, field, value) => {
     const updatedIngredients = [...meal.ingredients];
@@ -107,7 +109,6 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
 
         {(mealImageFile || (mode === "edit" && meal.image)) && (
           <div className="image-preview">
-            <p>Preview:</p>
             <img
               src={
                 mealImageFile
@@ -115,7 +116,6 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
                   : meal.image                         // Existing image
               }
               alt="Meal Preview"
-              style={{ maxWidth: "200px", marginTop: "0.5rem" }}
             />
           </div>
         )}
@@ -158,10 +158,12 @@ function MealForm({ meal, setMeal, onSubmit, mode = "add" }) {
               )}
             </div>
           ))}
+          <button type="button" onClick={addIngredient}>Add Ingredient</button>
+
         </label>
         
         <div className="bottom-btns">
-          <button type="button" onClick={addIngredient}>Add Ingredient</button>
+          <button type="button" onClick={() => navigate("/meals")}>Cancel</button>
           <button type="submit">{mode === "edit" ? "Save Changes" : "Add Meal"}</button>
         </div>
       </form>
